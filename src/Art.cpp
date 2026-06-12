@@ -23,7 +23,6 @@ sf::Texture makeSoftCircle(unsigned size, sf::Color base, sf::Color rim, sf::Col
 
             if (t > 1.f) continue;
 
-            // Радиальный градиент + мягкая кромка
             float alpha = 1.f;
             const float edge = 0.92f;
             if (t > edge) alpha = std::clamp(1.f - (t - edge) / (1.f - edge), 0.f, 1.f);
