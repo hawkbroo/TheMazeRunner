@@ -13,3 +13,5 @@
 *.log
 docs/~$*
 docs/*_обновлено.docx
+__pycache__/
+*.pyc
