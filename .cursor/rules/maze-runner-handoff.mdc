@@ -1,0 +1,16 @@
+---
+description: Контекст проекта The Maze Runner — читать handoff в начале сессии
+alwaysApply: true
+---
+
+# The Maze Runner
+
+Проект: C++17, SFML 2.6.1, Visual Studio 2022 x64. Папка: `C:\Users\Yura\Projects\TheMazeRunner`.
+
+**В начале каждого чата** (или если пользователь просит продолжить): прочитай **`docs/AGENT_HANDOFF.md`** и работай по актуальному снимку.
+
+Основной чат пользователя называется **`MazeRunner — основной`**. Если контекст потерян — handoff важнее истории чата.
+
+Не дублируй `utf8()` для UI. Не конвертируй `sf::String` оверлея в `std::string`. Сборка: x64 Debug, `TheMazeRunner.sln`.
+
+Активно сейчас: **MenuChase** в меню (500px, wrap после монстра), ур.5 монстры (12,5)/(19,11)/(22,13).

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <SFML_DIR>C:\Users\Yura\Projects\TheMazeRunner\third_party\SFML</SFML_DIR>
+    <SFML_MAJOR>2</SFML_MAJOR>
+  </PropertyGroup>
+</Project>

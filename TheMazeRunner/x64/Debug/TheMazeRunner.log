@@ -1,0 +1,13 @@
+﻿  main.cpp
+  Art.cpp
+  Game.cpp
+  Maze.cpp
+  Monster.cpp
+  Player.cpp
+  PlayerSheet.cpp
+  MonsterPinkSheet.cpp
+  MenuChase.cpp
+  PortalSheet.cpp
+  ExitPortal.cpp
+  Создание кода...
+  TheMazeRunner.vcxproj -> C:\Users\Yura\Projects\TheMazeRunner\x64\Debug\TheMazeRunner.exe
