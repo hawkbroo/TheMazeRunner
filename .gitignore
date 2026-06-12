@@ -1,8 +1,15 @@
 /x64/
+/TheMazeRunner/
 /.vs/
+/.cursor/
 *.user
 *.suo
 *.obj
 *.pdb
 *.ilk
 *.exe
+*.tlog
+*.idb
+*.log
+docs/~$*
+docs/*_обновлено.docx

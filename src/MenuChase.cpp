@@ -7,6 +7,7 @@ constexpr float PLAYER_ORIGIN_Y = 0.55f;
 constexpr float MONSTER_ORIGIN_Y = 0.70f;
 constexpr float MONSTER_SCALE = 1.06f;
 
+// Выравнивает монстра по «ногам» игрока на полосе меню.
 float alignedMonsterY(float centerY, float displayH) {
     const float playerBottom = centerY + (1.f - PLAYER_ORIGIN_Y) * displayH;
     const float monsterH = displayH * MONSTER_SCALE;
@@ -14,6 +15,7 @@ float alignedMonsterY(float centerY, float displayH) {
 }
 } // namespace
 
+// Цикл: бег -> поимка -> монстр уезжает -> снова бег.
 void MenuChase::update(float dt, float laneWidth) {
     const float right = laneWidth + EDGE_PAD;
 

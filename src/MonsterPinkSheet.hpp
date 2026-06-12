@@ -2,8 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-// Розовый монстр: 6 колонок x 3 ряда.
-// Ряды: run (6) | transform (5) | kill (5).
+// Спрайт-лист розового монстра: бег, злость, атака.
 struct MonsterPinkSheet {
     sf::Texture texture;
     unsigned cellW{70};
@@ -20,8 +19,7 @@ struct MonsterPinkSheet {
     static constexpr int RUN_FRAMES = 6;
     static constexpr int TRANSFORM_FRAMES = 5;
     static constexpr int KILL_FRAMES = 5;
-    // Последний кадр на листе — монстр «падает»; в игре не показываем.
-    static constexpr int KILL_PLAY_FRAMES = 4;
+    static constexpr int KILL_PLAY_FRAMES = 4;  // без последнего кадра «падения»
 
     bool loadFromFile(const std::string& path);
     sf::IntRect cellRect(int col, int row) const;

@@ -61,3 +61,9 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+# GitHub: не считать SFML и документацию «кодом проекта»
+third_party/** linguist-vendored
+docs/** linguist-documentation
+*.docx linguist-documentation
+*.rtf linguist-documentation

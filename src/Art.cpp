@@ -6,6 +6,7 @@
 
 namespace {
 
+// Процедурная текстура круга (запасной спрайт игрока).
 sf::Texture makeSoftCircle(unsigned size, sf::Color base, sf::Color rim, sf::Color shine) {
     sf::Image img;
     img.create(size, size, sf::Color::Transparent);
@@ -27,7 +28,6 @@ sf::Texture makeSoftCircle(unsigned size, sf::Color base, sf::Color rim, sf::Col
             const float edge = 0.92f;
             if (t > edge) alpha = std::clamp(1.f - (t - edge) / (1.f - edge), 0.f, 1.f);
 
-            // Лёгкий "объём": затемнение снизу-справа, блик сверху-слева
             const float light = std::clamp(0.8f + (-dx - dy) / (2.2f * r), 0.55f, 1.05f);
 
             sf::Color c = base;
@@ -35,7 +35,6 @@ sf::Texture makeSoftCircle(unsigned size, sf::Color base, sf::Color rim, sf::Col
             c.g = static_cast<sf::Uint8>(std::clamp(c.g * light, 0.f, 255.f));
             c.b = static_cast<sf::Uint8>(std::clamp(c.b * light, 0.f, 255.f));
 
-            // Кромка
             if (t > 0.78f) {
                 const float k = std::clamp((t - 0.78f) / (1.f - 0.78f), 0.f, 1.f);
                 c.r = static_cast<sf::Uint8>(c.r * (1.f - k) + rim.r * k);
@@ -43,7 +42,6 @@ sf::Texture makeSoftCircle(unsigned size, sf::Color base, sf::Color rim, sf::Col
                 c.b = static_cast<sf::Uint8>(c.b * (1.f - k) + rim.b * k);
             }
 
-            // Блик
             const float sx = (static_cast<float>(x) - (cx - r * 0.25f));
             const float sy = (static_cast<float>(y) - (cy - r * 0.25f));
             const float sdist = std::sqrt(sx * sx + sy * sy);
@@ -65,8 +63,8 @@ sf::Texture makeSoftCircle(unsigned size, sf::Color base, sf::Color rim, sf::Col
     return tex;
 }
 
+// Запасная текстура выхода, если нет portal_sheet.
 sf::Texture makeExit(unsigned size) {
-    // "Неоновая" цель: круг + кольцо
     sf::Image img;
     img.create(size, size, sf::Color::Transparent);
 

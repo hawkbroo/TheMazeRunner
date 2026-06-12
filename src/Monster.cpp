@@ -6,10 +6,12 @@
 #include "Constants.hpp"
 
 namespace {
+
 constexpr float RUN_FRAME_TIME = 0.09f;
 constexpr float TRANSFORM_FRAME_TIME = 0.14f;
 constexpr float KILL_FRAME_TIMES[] = {0.18f, 0.18f, 0.2f, 0.22f, 0.4f};
 
+// Нормализованное направление патруля.
 sf::Vector2f dirFromPatrol(int px, int py) {
     sf::Vector2f d(static_cast<float>(px), static_cast<float>(py));
     const float len = std::sqrt(d.x * d.x + d.y * d.y);
@@ -50,6 +52,7 @@ void Monster::startKill() {
     animTimer_ = 0.f;
 }
 
+// Запуск анимации «злости» при начале погони.
 void Monster::onChaseStarted() {
     if (ai_ != MonsterAI::Chase || !pinkSheet_ || !pinkSheet_->loaded || evil_ ||
         animState_ == MonsterAnimState::Transform || animState_ == MonsterAnimState::Kill ||
@@ -60,6 +63,7 @@ void Monster::onChaseStarted() {
     animTimer_ = 0.f;
 }
 
+// Сброс злости, когда игрок убежал достаточно далеко.
 void Monster::onChaseCalmed() {
     if (animState_ == MonsterAnimState::Kill || animState_ == MonsterAnimState::KillDone)
         return;
@@ -72,6 +76,7 @@ void Monster::onChaseCalmed() {
     animTimer_ = 0.f;
 }
 
+// Кадр «рта» зависит от дистанции до игрока.
 int Monster::mouthColFromDist(float dist) const {
     if (dist > CHASE_START_DISTANCE) return 0;
     if (dist > 170.f) return 1;
@@ -80,6 +85,7 @@ int Monster::mouthColFromDist(float dist) const {
     return 4;
 }
 
+// Движение по прямой; при упоре в стену — смена направления.
 void Monster::updatePatrol(float dt, const Maze& maze) {
     const sf::Vector2f wish = dirFromPatrol(patrolDirX_, patrolDirY_) * speed_ * dt;
     const sf::Vector2f before = pos_;
@@ -108,6 +114,7 @@ void Monster::updatePatrol(float dt, const Maze& maze) {
     }
 }
 
+// Преследование по BFS с гистерезисом дистанции (CHASE_START / CHASE_STOP).
 void Monster::updateChase(float dt, const Maze& maze, sf::Vector2f playerPos, float playerSpeed) {
     speed_ = playerSpeed * MONSTER_CHASE_FACTOR * speedMultiplier_;
 

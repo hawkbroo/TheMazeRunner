@@ -6,6 +6,7 @@
 
 namespace {
 
+// Рисует фрагмент текстуры по координатам клетки (тайлинг с zoom).
 void drawTiledTexture(sf::RenderTarget& target, sf::Sprite& sprite, const sf::Texture& tex,
                        int gridX, int gridY, float px, float py, float ts, float zoom) {
     const int texW = static_cast<int>(tex.getSize().x);
@@ -29,6 +30,7 @@ void Maze::setTileSize(unsigned size) {
     tileSize_ = size > 0 ? size : TILE_SIZE;
 }
 
+// Парсит карту: выравнивает строки, находит S и E, заменяет их на пол.
 bool Maze::loadFromLayout(const std::vector<std::string>& layout) {
     if (layout.empty()) return false;
     grid_ = layout;
@@ -92,6 +94,7 @@ sf::Vector2f Maze::gridCenter(sf::Vector2i g) const {
     return sf::Vector2f(g.x * tileSize_ + tileSize_ * 0.5f, g.y * tileSize_ + tileSize_ * 0.5f);
 }
 
+// BFS по сетке: один шаг к цели для ИИ преследования.
 sf::Vector2i Maze::nextStepBfs(sf::Vector2i from, sf::Vector2i to) const {
     if (from == to) return from;
     if (!isFloor(from.x, from.y) || !isFloor(to.x, to.y)) return from;
@@ -147,6 +150,7 @@ bool Maze::hasPathStartToExit() const {
     return isReachable(sx, sy, ex, ey);
 }
 
+// Раздельное движение по осям — скольжение вдоль стен в углах.
 void Maze::moveCircle(sf::Vector2f& pos, sf::Vector2f delta, float radius) const {
     const float cr = radius * COLLISION_RADIUS_SCALE;
 
@@ -162,9 +166,8 @@ bool Maze::isFloor(int gx, int gy) const {
     return grid_[gy][gx] != '#';
 }
 
+// Ближайшая проходимая клетка — для корректного спавна монстров.
 sf::Vector2f Maze::nearestFloorCenter(int gx, int gy) const {
-    // Поиск ближайшей клетки-прохода "волной" (BFS по манхэттенскому расстоянию).
-    // Нужно на случай некорректного спавна монстров: мы аккуратно переносим их в проход.
     const int maxR = std::max(width(), height());
     for (int r = 0; r <= maxR; ++r) {
         for (int dy = -r; dy <= r; ++dy) {
@@ -184,6 +187,7 @@ sf::Vector2f Maze::nearestFloorCenter(int gx, int gy) const {
                        gy * tileSize_ + tileSize_ * 0.5f);
 }
 
+// Круг vs прямоугольники клеток-стен (AABB + расстояние до ближайшей точки).
 bool Maze::isWallAtPixel(float px, float py, float radius) const {
     const int minGX = static_cast<int>((px - radius) / tileSize_);
     const int maxGX = static_cast<int>((px + radius) / tileSize_);

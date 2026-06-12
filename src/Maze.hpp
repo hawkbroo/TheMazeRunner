@@ -6,6 +6,7 @@
 
 #include "Constants.hpp"
 
+// Сетка лабиринта: загрузка карты, коллизии, BFS, отрисовка.
 class Maze {
 public:
     bool loadFromLayout(const std::vector<std::string>& layout);
@@ -22,12 +23,12 @@ public:
     sf::Vector2f nearestFloorCenter(int gx, int gy) const;
     sf::Vector2i pixelToGrid(sf::Vector2f p) const;
     sf::Vector2f gridCenter(sf::Vector2i g) const;
-    // Возвращает следующую клетку на кратчайшем пути от from -> to (BFS).
-    // Если пути нет, возвращает from.
+
+    // Следующий шаг по кратчайшему пути (BFS); при отсутствии пути — from.
     sf::Vector2i nextStepBfs(sf::Vector2i from, sf::Vector2i to) const;
     bool hasPathStartToExit() const;
 
-    // Движение круга с раздельной проверкой по X и Y (скольжение вдоль стен в углах)
+    // Скольжение вдоль стен: сначала X, потом Y.
     void moveCircle(sf::Vector2f& pos, sf::Vector2f delta, float radius) const;
 
     void draw(sf::RenderTarget& target) const;

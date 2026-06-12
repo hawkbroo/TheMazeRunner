@@ -1,6 +1,6 @@
-// The Maze Runner — курсовой проект на C++ и SFML
 #include "Game.hpp"
 
+// Точка входа: инициализация и запуск игрового цикла.
 int main() {
     Game game;
     if (!game.init()) return 1;

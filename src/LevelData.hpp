@@ -3,8 +3,10 @@
 #include <string>
 #include <vector>
 
+// Режим поведения монстра.
 enum class MonsterAI { Patrol, Chase };
 
+// Точка появления и параметры одного монстра.
 struct MonsterSpawn {
     int gridX;
     int gridY;
@@ -15,6 +17,7 @@ struct MonsterSpawn {
     bool lockPatrolAxis{false}; // не сворачивать на перекрёстках
 };
 
+// Описание одного уровня.
 struct LevelConfig {
     int index;
     std::string name;
@@ -25,6 +28,7 @@ struct LevelConfig {
     unsigned tileSize = 32; // размер клетки в пикселях (зум уровня)
 };
 
+// Увеличивает карту в factor раз (каждый символ -> factor x factor клеток).
 inline std::vector<std::string> scaleLayout(const std::vector<std::string>& layout, int factor) {
     std::vector<std::string> out;
     out.reserve(layout.size() * static_cast<size_t>(factor));
@@ -40,6 +44,7 @@ inline std::vector<std::string> scaleLayout(const std::vector<std::string>& layo
     return out;
 }
 
+// Пять уровней с нарастающей сложностью.
 inline std::vector<LevelConfig> buildLevels() {
     using M = MonsterSpawn;
     return {
@@ -62,7 +67,6 @@ inline std::vector<LevelConfig> buildLevels() {
                 2),
             90.f, 45.f,
             {
-                // Патруль в боковом коридоре (координаты для карты 38x22).
                 M{ 6, 14, 0, -1, MonsterAI::Patrol, 0.9f },
             },
             24,
@@ -70,7 +74,6 @@ inline std::vector<LevelConfig> buildLevels() {
         {
             2, "Уровень 2 — коридоры",
             {
-                // 27x15 — длинные коридоры и развилки.
                 "###########################",
                 "#S..#.............#......##",
                 "###.#.###.#######.#######.#",
@@ -89,7 +92,6 @@ inline std::vector<LevelConfig> buildLevels() {
             },
             75.f, 70.f,
             {
-                // Верхний горизонталь (y=1) и самая правая вертикаль (x=25, y=2..13).
                 M{ 12, 1, 1, 0, MonsterAI::Patrol, 1.f },
                 M{ 25, 8, 0, 1, MonsterAI::Patrol, 1.f, true },
             },
@@ -97,7 +99,6 @@ inline std::vector<LevelConfig> buildLevels() {
         {
             3, "Уровень 3 — спешка",
             {
-                // 31x19 — как уровень 5.
                 "###############################",
                 "#S#.........#...#.....#.......#",
                 "#.#.#.#####.#.#.#.#####.###.###",
@@ -129,7 +130,6 @@ inline std::vector<LevelConfig> buildLevels() {
         {
             4, "Уровень 4 — охота",
             {
-                // 31x19 — как уровень 5.
                 "###############################",
                 "#S............................#",
                 "#.#.#####.#.###.###.#######.###",
@@ -161,7 +161,6 @@ inline std::vector<LevelConfig> buildLevels() {
         {
             5, "Уровень 5 — финал",
             {
-                // 31x19 — широкий, ниже: выход внизу виден на экране.
                 "###############################",
                 "#S..........#.................#",
                 "#.#.#######.#.###########.###.#",
@@ -184,9 +183,7 @@ inline std::vector<LevelConfig> buildLevels() {
             },
             40.f, 0.f,
             {
-                // Зелёная линия — горизонтальный коридор y=5, x=9..15.
                 M{ 12, 5, 1, 0, MonsterAI::Chase, 1.05f, true },
-                // Красная линия — коридор выше (y=11, x=17..20).
                 M{ 19, 11, 1, 0, MonsterAI::Chase, 1.1f, true },
                 M{ 22, 13, -1, 0, MonsterAI::Chase, 1.15f },
             },

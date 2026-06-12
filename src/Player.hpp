@@ -8,6 +8,7 @@
 
 enum class PlayerAnimState { Idle, Run, Dying, Dead };
 
+// Управляемый персонаж: ввод, движение, анимация.
 class Player {
 public:
     void reset(sf::Vector2f startPos);

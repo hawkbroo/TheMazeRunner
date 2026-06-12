@@ -12,20 +12,22 @@
 #include "MenuChase.hpp"
 #include "Art.hpp"
 
+// Состояния конечного автомата игры.
 enum class GameState {
     MainMenu,
     Playing,
-    Caught,
-    Dying,
+    Caught,       // монстр догнал, проигрывается анимация атаки
+    Dying,        // анимация смерти игрока
     LevelComplete,
     GameComplete,
     GameOver
 };
 
+// Главный класс: окно, цикл, меню, уровни, звук.
 class Game {
 public:
-    bool init();
-    void run();
+    bool init();  // окно, ресурсы, UI
+    void run();   // главный цикл
 
 private:
     void processEvents();
@@ -35,7 +37,7 @@ private:
     void startLevel(int index);
     void nextLevel();
     void returnToMainMenu();
-    void applyGameView();
+    void applyGameView();  // камера под размер лабиринта
     unsigned fitTileSizeForLevel(const LevelConfig& lvl) const;
 
     bool loadFont();
@@ -78,7 +80,6 @@ private:
     sf::String pendingGameOverHint_;
     int catchingMonster_{-1};
 
-    // UI тексты
     sf::Text titleText_;
     sf::Text hudText_;
     sf::Text centerText_;

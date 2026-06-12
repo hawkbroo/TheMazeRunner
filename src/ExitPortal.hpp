@@ -4,6 +4,7 @@
 
 #include "PortalSheet.hpp"
 
+// Анимированный выход уровня.
 class ExitPortal {
 public:
     void setPosition(sf::Vector2f pos) { pos_ = pos; }

@@ -1,5 +1,6 @@
 #include "PortalSheet.hpp"
 
+// Делит текстуру на сетку 8x8 (64 кадра).
 bool PortalSheet::loadFromFile(const std::string& path) {
     if (!texture.loadFromFile(path))
         return false;
@@ -10,6 +11,7 @@ bool PortalSheet::loadFromFile(const std::string& path) {
     return true;
 }
 
+// Номер кадра -> прямоугольник в листе (слева направо, сверху вниз).
 sf::IntRect PortalSheet::frameRect(int frame) const {
     const int f = frame % FRAME_COUNT;
     const int col = f % COLS;

@@ -8,6 +8,7 @@
 
 enum class MonsterAnimState { Run, Transform, Evil, Kill, KillDone };
 
+// NPC: патруль или преследование с гистерезисом по дистанции.
 class Monster {
 public:
     void spawn(const MonsterSpawn& cfg, float baseSpeed, const Maze& maze);

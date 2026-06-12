@@ -9,6 +9,8 @@
 #include "Utf.hpp"
 
 namespace {
+
+// Проверка столкновения двух кругов.
 bool circlesOverlap(sf::Vector2f a, float ra, sf::Vector2f b, float rb) {
     const float dx = a.x - b.x;
     const float dy = a.y - b.y;
@@ -140,7 +142,7 @@ void Game::stopVictorySound() {
 }
 
 bool Game::loadFont() {
-    // Стандартный шрифт Windows — удобно для курсовой без отдельных ассетов
+    // Системный шрифт Windows
     const char* paths[] = {
         "C:/Windows/Fonts/arial.ttf",
         "C:/Windows/Fonts/times.ttf",
@@ -195,6 +197,7 @@ bool Game::init() {
     return true;
 }
 
+// Подбирает размер клетки, чтобы лабиринт влез на экран.
 unsigned Game::fitTileSizeForLevel(const LevelConfig& lvl) const {
     const unsigned base = lvl.tileSize > 0 ? lvl.tileSize : TILE_SIZE;
     if (lvl.layout.empty())
@@ -215,6 +218,7 @@ unsigned Game::fitTileSizeForLevel(const LevelConfig& lvl) const {
     return std::max(MIN_TILE_SIZE, fitted);
 }
 
+// Масштабирует вид так, чтобы лабиринт занимал окно без искажений.
 void Game::applyGameView() {
     const float ts = static_cast<float>(maze_.tileSize());
     const float mazeW = static_cast<float>(maze_.width()) * ts;
@@ -240,7 +244,7 @@ void Game::startLevel(int index) {
 
     maze_.setTileSize(fitTileSizeForLevel(lvl));
     if (!maze_.loadFromLayout(lvl.layout) || !maze_.hasPathStartToExit()) {
-        // Резерв только если layout битый (разная длина строк) — не упрощённый «змейка»-лабиринт
+        // Резерв при некорректной карте (разная длина строк)
         const std::vector<std::string> fallback = {
             "################################",
             "#S....#..........#............E#",
@@ -577,6 +581,7 @@ void Game::render() {
     window_.display();
 }
 
+// pollEvent -> update -> render, dt от sf::Clock.
 void Game::run() {
     while (window_.isOpen()) {
         const float dt = clock_.restart().asSeconds();

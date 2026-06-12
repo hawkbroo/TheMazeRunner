@@ -2,8 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-// Сетка: 8 направлений (BACK..BACK_LEFT) x 7 рядов анимации.
-// Ряды: idle | run A | run B | fall | dead back | dead down A | dead down B.
+// Спрайт-лист игрока: 8 направлений x 7 рядов анимации.
 struct PlayerSheet {
     sf::Texture texture;
     unsigned cellW{104};
@@ -13,7 +12,6 @@ struct PlayerSheet {
     static constexpr int COLS = 8;
     static constexpr int ROWS = 7;
 
-    // Направления (колонки)
     static constexpr int COL_BACK = 0;
     static constexpr int COL_BACK_RIGHT = 1;
     static constexpr int COL_RIGHT = 2;
@@ -23,7 +21,6 @@ struct PlayerSheet {
     static constexpr int COL_LEFT = 6;
     static constexpr int COL_BACK_LEFT = 7;
 
-    // Анимации (ряды)
     static constexpr int ROW_IDLE = 0;
     static constexpr int ROW_RUN_A = 1;
     static constexpr int ROW_RUN_B = 2;

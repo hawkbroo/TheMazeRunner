@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+// Переключение кадров портала по таймеру.
 void ExitPortal::update(float dt) {
     if (!sheet_ || !sheet_->loaded)
         return;

@@ -6,9 +6,11 @@
 #include "Constants.hpp"
 
 namespace {
+
 constexpr float RUN_FRAME_TIME = 0.11f;
 constexpr float DEATH_FRAME_TIMES[] = {0.22f, 0.2f, 0.2f, 0.35f};
 
+// Вектор движения -> колонка спрайт-листа (8 направлений).
 int directionToColumn(sf::Vector2f d) {
     if (std::abs(d.x) < 0.35f && std::abs(d.y) < 0.35f)
         return -1;
@@ -42,6 +44,7 @@ void Player::startDeath() {
     animTimer_ = 0.f;
 }
 
+// WASD и стрелки; вектор нормализуется для диагонали.
 void Player::handleInput() {
     if (animState_ == PlayerAnimState::Dying || animState_ == PlayerAnimState::Dead)
         return;

@@ -5,7 +5,7 @@
 #include "MonsterPinkSheet.hpp"
 #include "PlayerSheet.hpp"
 
-// Бегущая «погоня» в главном меню: игрок слева направо, за ним злой монстр.
+// Декоративная погоня на главном меню.
 class MenuChase {
 public:
     void setSheets(const PlayerSheet* player, const MonsterPinkSheet* monster) {
